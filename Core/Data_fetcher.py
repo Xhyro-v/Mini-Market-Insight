@@ -24,5 +24,4 @@ def fetch_historical_prices(coin_id, days=7):
 
     r = requests.get(url, headers=headers, params=params)
     prices = r.json()["prices"]
-
     return [price[1] for price in prices]
