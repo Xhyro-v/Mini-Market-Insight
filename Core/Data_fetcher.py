@@ -1,4 +1,4 @@
-import requests
+import requests, json
 from Utils.Utility import BASE_URL, COINGECKO_API_KEY
 
 
@@ -14,7 +14,7 @@ def fetch_current_price(coin_id):
     return r.json()[coin_id]["usd"]
 
 
-def fetch_historical_prices(coin_id, days=7):
+def fetch_historical_prices(coin_id, days=30):
     url = f"{BASE_URL}/coins/{coin_id}/market_chart"
     headers = {"x-cg-api-key": COINGECKO_API_KEY}
     params = {
@@ -23,5 +23,5 @@ def fetch_historical_prices(coin_id, days=7):
     }
 
     r = requests.get(url, headers=headers, params=params)
-    prices = r.json()["prices"]
+    prices = r.json()['prices']
     return [price[1] for price in prices]
