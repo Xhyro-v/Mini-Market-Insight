@@ -17,8 +17,6 @@ for i, coin in enumerate(CRYPTO_LIST, 1):
 choice = int(Input.number("\nPilih Crypto (1-4): "))
 coin_id = CRYPTO_LIST[choice - 1]
 
-refresh = int(input("Resfresh tiap: "))
-
 while True:
     current_price = fetch_current_price(coin_id)
     historical_prices = fetch_historical_prices(coin_id, days=30)
@@ -31,4 +29,3 @@ while True:
     print(f"7D Average     : ${avg_price:.2f}")
     print(f"Signal         : {signal}")
     print(f"Diff           : {diff:.2f}%")
-    time.sleep(refresh)
