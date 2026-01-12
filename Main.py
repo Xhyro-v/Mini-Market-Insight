@@ -1,7 +1,7 @@
-import time
-from Utils.Utility import Input, Color, Center
+from Utils.Utility import Input, Color, Center, Font
 from Core.Data_fetcher import fetch_current_price, fetch_historical_prices
 from Core.Processor import analyze_signal
+from Core.Report import Output
 
 CRYPTO_LIST = [
     "bitcoin",
@@ -10,22 +10,40 @@ CRYPTO_LIST = [
     "binancecoin"
 ]
 
-print(Center.box("CRYPTO SIGNAL ANALYZER"))
-for i, coin in enumerate(CRYPTO_LIST, 1):
-    print(f"{i}. {coin}")
 
-choice = int(Input.number("\nPilih Crypto (1-4): "))
-coin_id = CRYPTO_LIST[choice - 1]
+print(Center.box("CRYPTO SIGNAL ANALYZER"))
 
 while True:
-    current_price = fetch_current_price(coin_id)
-    historical_prices = fetch_historical_prices(coin_id, days=30)
+    print(Font.Bold("=====MENU====="))
+    print("1.Crypto")
+    print("2.keluar\n")
+    cmd = input("Pilih menu: ").strip().capitalize()
+    if cmd in ["1","Crypto"]:
     
-    signal, avg_price, diff = analyze_signal(current_price, historical_prices)
+        print(" ")
+        print(Center.box("CRYPTO LIST"))
+        for i, coin in enumerate(CRYPTO_LIST, 1):
+            print(f"{i}. {coin}")
+  
+        choice = int(Input.number("\nPilih Crypto (1-4): "))
+        coin_id = CRYPTO_LIST[choice - 1]
     
-    print("\n" + Center.box("RESULT"))
-    print(f"Crypto         : {coin_id}")
-    print(f"Current Price  : {Color.Green('$')}{Color.Green(current_price)}")
-    print(f"7D Average     : ${avg_price:.2f}")
-    print(f"Signal         : {signal}")
-    print(f"Diff           : {diff:.2f}%")
+        historical_prices = fetch_historical_prices(coin_id, days=7)
+    
+        current_price = fetch_current_price(coin_id)
+        signal, avg_price, diff = analyze_signal(current_price, historical_prices)
+    
+        Output.report(
+            coin=coin_id,
+            current=current_price,
+            avg=avg_price,
+            signal=signal,
+            diff=diff
+        )
+        print("")
+    elif cmd in ["2","Keluar"]:
+        print(Color.Blue(Center.text("Program selesai")))
+        break
+    
+    else:
+        print(Color.Red(Center.text(f"There's no menu name {cmd}\n")))
