@@ -38,25 +38,31 @@ def Main():
               
               for i, TM in enumerate(TIME, 1):
                   print(f"{i}. {TM} day")
-              
-              times = int(Input.number("\nPilih waktu: "))
-              if time == 2:
-                  times = 7
-        
-              elif time == 3:
-                  times = 30
+              while True:
+                  times = int(Input.number("\nPilih waktu: "))
+                  if time == 2:
+                      times = 7
+            
+                  elif time == 3:
+                      times = 30
+            
+                  elif time not in [1,7,30]:
+                      print(Color.Red(Center.text("Not valid")))
+          
+              avg_price = float(Input.number("Masukan harga saat beli: "))
           
               historical_prices = fetch_historical_prices(coin_id, days=times)
           
               current_price = fetch_current_price(coin_id)
-              signal, avg_price, diff = analyze_signal(current_price, historical_prices)
+              signal, avg_price, diff = analyze_signal(current_price, historical_prices,avg_price)
           
               Output.report(
                   coin=coin_id,
                   current=current_price,
                   avg=avg_price,
                   signal=signal,
-                  diff=diff
+                  diff=diff,
+                  times=times
               )
               print("")
           elif cmd in ["2","Keluar"]:
