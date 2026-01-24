@@ -1,14 +1,9 @@
-from Utils.Utility import Input, Color, Center, Font
-from Core.Data_fetcher import fetch_current_price, fetch_historical_prices
+from Utils.Utility import Input, Color, Center, Font, crypto
+from Core.Data_fetcher import fetch_current_price, fetch_historical_prices, Global_market
 from Core.Processor import analyze_signal
 from Core.Report import Output
 
-CRYPTO_LIST = [
-    "bitcoin",
-    "ethereum",
-    "solana",
-    "binancecoin"
-]
+#Global_val
 
 time_list = [
     "1 day",
@@ -21,6 +16,14 @@ print(Center.box(Center.text("CRYPTO SIGNAL ANALYZER")))
 
 def Main():
       while True:
+          """
+          Enter your API key down here ↓
+          """
+          CAK = crypto.ApiKey("CG-7qQZF5SzkFCZhcbXg9wAUvAv")
+          """
+          ----------------------
+          """
+          CRYPTO_LIST = crypto.CL()
           print(Font.Bold("=====MENU====="))
           print("1.Crypto")
           print("2.keluar\n")
@@ -34,12 +37,20 @@ def Main():
               submenu = input("Pilih Submenu: ").strip()
               if submenu in ["1"]:
                   Output.list_crypto(CRYPTO_LIST)
-                  choice = int(Input.number("\nPilih Crypto (1-4): "))
-                  coin_id = CRYPTO_LIST[choice - 1]
-            
-                  current_price = fetch_current_price(coin_id)
-                  Output.report_info(coin_id,current_price)
-              
+                  while True:
+                      choice = int(Input.number("\nPilih Crypto (1-4): "))
+                      if choice == 909:
+                          break
+                      coin_id = CRYPTO_LIST[choice - 1]
+                
+                      current_price = fetch_current_price(coin_id, CAK)
+                      Output.report_info(coin_id,current_price)
+
+                      data = Global_market()
+                      cap = data["market_cap"]
+                      vol = data["volume"]
+                      Output.global_val(cap, vol)
+
               elif submenu in ["2"]:
               
                   Output.list_crypto(CRYPTO_LIST)
@@ -53,11 +64,11 @@ def Main():
                   times = time_list[chtimes - 1]
   
   
-                  avg_price = float(Input.number("Masukan harga saat beli: "))
+                  avg_price = float(input("Masukan saat beli: "))
               
-                  historical_prices = fetch_historical_prices(coin_id, days=times)
+                  historical_prices = fetch_historical_prices(coin_id, CAK, days=times)
               
-                  current_price = fetch_current_price(coin_id)
+                  current_price = fetch_current_price(coin_id, CAK)
                   signal, avg_price, diff = analyze_signal(current_price, historical_prices,avg_price)
               
                   Output.report_decc(

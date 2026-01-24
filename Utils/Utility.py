@@ -154,17 +154,40 @@ class JKit:
           with open(file, "w") as f:
               json.dump(data, f, indent=2)
 
+class crypto:
+    def ApiKey(API_KEY) -> str:
+        COINGECKO_API_KEY = API_KEY
+        return (str(COINGECKO_API_KEY))
 
-class Err(Exception):
-      pass
-    
-COINGECKO_API_KEY = "YOUR_API_KEY"
+    def CL():
+        LIST = [
+        "bitcoin",
+        "ethereum",
+        "tether",
+        "binancecoin",
+        "XRP",
+        "solana",
+        "dogecoin",
+        "cardano",
+        "shibainu",
+        "litecoin",
+        "bitcoincash",
+        "stellar",
+        "chainlink",
+        "polkadot",
+        "uniswap",
+        "tron",
+        "avalanche",
+        "monero",
+        "cosmos",
+        "eos"
+          ]
+        return LIST
+        
+    def url():
+        BASE_URL = "https://api.coingecko.com/api/v3/"
+        return BASE_URL
 
-BASE_URL = "https://api.coingecko.com/api/v3"
-
-CRYPTO_LIST = [
-    "bitcoin",
-    "ethereum",
-    "solana",
-    "binancecoin"
-  ]
+    def global_url():
+        GB_URL = "https://api.coingecko.com/api/v3/global"
+        return GB_URL

@@ -32,3 +32,12 @@ class Output:
             print(f"{i}. {coin}")
         print(Center.box(""))
         print("")
+    
+    def global_val(cap, vol):
+        print("")
+        print(Center.box("Global Market"))
+        print(f"Total Market Cap: ${Color.Green(f'{cap:,.0f}')}")
+        print(f"Total Volume: ${Color.Green(f'{vol:,.0f}')}")
+        print(Center.box(""))
+        print("")
+
