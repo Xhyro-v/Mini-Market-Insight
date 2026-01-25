@@ -1,0 +1,37 @@
+# ================= PYTHON =================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+
+# ================= NUMPY / SCI PY CACHE =================
+*.npy
+*.npz
+
+# ================= VIRTUAL ENV =================
+venv/
+env/
+.venv/
+ENV/
+
+# ================= TERMUX / LINUX =================
+*.log
+*.tmp
+
+# ================= EDITOR =================
+.vscode/
+.idea/
+*.swp
+
+# ================= DATABASE JSON (SENSITIVE) =================
+Storage/Users.json
+Storage/*.json
+
+# (kalau mau keep json tertentu, pakai !)
+# !Storage/Watchlist.json
+
+# ================= SECRET FILES =================
+.env
+config.json
+secrets.json
