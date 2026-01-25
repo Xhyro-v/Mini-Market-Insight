@@ -144,16 +144,6 @@ class Input:
           else:
               print(Color.Red(Font.Bold(Center.text("Hanya angka!\n"))))
 
-class JKit:
-    def load_json(file):
-          import json
-          with open(file, "r") as f:
-              return json.load(f)
-    def save_json(file, data):
-          import json
-          with open(file, "w") as f:
-              json.dump(data, f, indent=2)
-
 class crypto:
     def ApiKey(API_KEY) -> str:
         COINGECKO_API_KEY = API_KEY
