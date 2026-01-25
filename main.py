@@ -2,6 +2,8 @@ from Utils.Utility import Input, Color, Center, Font, crypto
 from Core.Data_fetcher import fetch_current_price, fetch_historical_prices, Global_market
 from Core.Processor import analyze_signal
 from Core.Report import Output
+from Auth.Login import Auth
+from Storage.Database import Database
 
 #Global_val
 
@@ -13,15 +15,46 @@ time_list = [
 
 
 print(Center.box(Center.text("CRYPTO SIGNAL ANALYZER")))
-
-def Main():
+def auth_menu():
+      while True:
+          auth = Auth()
+          print("\n=== AUTH SYSTEM ===")
+          print("1. Login")
+          print("2. Daftar")
+          print("0. Keluar")
+  
+          pilihan = input("Pilih: ")
+  
+          if pilihan == "1":
+              username = input("Username: ")
+              password = input("Password: ")
+  
+              status, msg = auth.login(username, password)
+              print(msg)
+  
+              if status:
+                  return username  # login sukses → masuk menu utama
+  
+          elif pilihan == "2":
+              username = input("Username: ")
+              password = input("Password: ")
+  
+              status, msg = auth.register(username, password)
+              print(msg)
+  
+          elif pilihan == "0":
+              exit()
+  
+          else:
+              print("❌ Pilihan tidak valid!")
+def main_menu(username):
       while True:
           """
           Enter your API key down here ↓
           """
-          CAK = crypto.ApiKey("CG-7qQZF5SzkFCZhcbXg9wAUvAv")
+          CAK = crypto.ApiKey("YOUR_API_KEY")
           """
-          ----------------------
+          ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
           """
           CRYPTO_LIST = crypto.CL()
           print(Font.Bold("=====MENU====="))
@@ -80,12 +113,18 @@ def Main():
                       times=times
                   )
                   print("")
+                  
+      
           elif cmd in ["2","Keluar"]:
               print(Color.Blue(Center.text("Program selesai")))
               break
           
           else:
               print(Color.Red(Center.text(f"There's no menu name {cmd}\n")))
+
+def Main():
+    username = auth_menu()
+    main_menu(username)
 
 if __name__ == '__main__':
     Main()
