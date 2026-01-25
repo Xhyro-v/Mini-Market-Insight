@@ -54,12 +54,3 @@ def Global_market(vs_currency="usd"):
         return {
             "error": str(e)
         }  
-
-# def Market_cap():
-#     BASE_URL = crypto.url()
-#     data = requests.get(BASE_URL).json()["data"]
-# 
-#     total_market_cap = data["total_market_cap"]["usd"]
-#     total_volume = data["total_volume"]["usd"]
-#     
-#     return total_volume ,# total_market_cap
