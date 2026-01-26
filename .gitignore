@@ -28,7 +28,6 @@ ENV/
 Storage/Users.json
 Storage/*.json
 
-# (kalau mau keep json tertentu, pakai !)
 # !Storage/Watchlist.json
 
 # ================= SECRET FILES =================
