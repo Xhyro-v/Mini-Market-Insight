@@ -143,6 +143,16 @@ class Input:
               return text
           else:
               print(Color.Red(Font.Bold(Center.text("Hanya angka!\n"))))
+    
+    def Auth_in(teks, hidden=False):
+        import os
+        from getpass import getpass
+
+        lebar = os.get_terminal_size().columns
+        spasi = (lebar - len(teks)) // 2
+
+        print("\n" * 5 + " " * spasi + teks)
+        return getpass(" " * spasi) if hidden else input(" " * spasi)
 
 class crypto:
     def ApiKey(API_KEY) -> str:
@@ -173,7 +183,15 @@ class crypto:
         "eos"
           ]
         return LIST
-        
+
+    def TL():
+        List = [
+        "1 day",
+        "7 days",
+        "30 days",
+        ]
+        return List
+  
     def url():
         BASE_URL = "https://api.coingecko.com/api/v3/"
         return BASE_URL
