@@ -5,14 +5,6 @@ from Core.Report import Output
 from Auth.Login import Auth
 from Storage.Database import Database
 
-#Global_val
-
-time_list = [
-    "1 day",
-    "7 days",
-    "30 days",
-    ]
-
 
 print(Center.box(Center.text("CRYPTO SIGNAL ANALYZER")))
 def auth_menu():
@@ -26,18 +18,28 @@ def auth_menu():
           pilihan = input("Pilih: ")
   
           if pilihan == "1":
-              username = input("Username: ")
-              password = input("Password: ")
+              password_token = 5
+              while password_token > 0 :
+
+                  username = Input.Auth_in("Username: ")
+                  password = Input.Auth_in("Password: ", hidden = True)
+      
+                  status, msg = auth.login(username, password)
+                  if status is False:
+                      print(msg)
+                      password_token -= 1
+      
+                  else:
+                      print(msg)
+                      if status:
+                          return username 
+                      
+      
   
-              status, msg = auth.login(username, password)
-              print(msg)
-  
-              if status:
-                  return username  # login sukses → masuk menu utama
   
           elif pilihan == "2":
-              username = input("Username: ")
-              password = input("Password: ")
+              username = Input.Auth_in(Color.BrightBlue("Username: "))
+              password = Input.Auth_in(Color.BrightBlue("Password: "))
   
               status, msg = auth.register(username, password)
               print(msg)
@@ -46,7 +48,7 @@ def auth_menu():
               exit()
   
           else:
-              print("❌ Pilihan tidak valid!")
+              print(Color.Red(Center.text("Pilihan tidak valid!")))
 def main_menu(username):
       while True:
           """
@@ -56,6 +58,7 @@ def main_menu(username):
           """
           ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
           """
+          TIME_LIST = crypto.TL()
           CRYPTO_LIST = crypto.CL()
           print(Font.Bold("=====MENU====="))
           print("1.Crypto")
@@ -90,11 +93,11 @@ def main_menu(username):
                   choice = int(Input.number("\nPilih Crypto (1-4): "))
                   coin_id = CRYPTO_LIST[choice - 1]
                   
-                  for i, TM in enumerate(time_list, 1):
+                  for i, TM in enumerate(TIME_LIST, 1):
                       print(f"{i}. {TM}")
 
                   chtimes = int(Input.number("\nPilih waktu: "))
-                  times = time_list[chtimes - 1]
+                  times = TIME_LIST[chtimes - 1]
   
   
                   avg_price = float(input("Masukan saat beli: "))
