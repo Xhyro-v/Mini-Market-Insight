@@ -35,7 +35,7 @@ def fetch_historical_prices(coin_id, COINGECKO_API_KEY, days=30,):
 
 
 def Global_market(vs_currency="usd"):
-    url = crypto.global_url()# "https://api.coingecko.com/api/v3/global"
+    url = crypto.global_url()
     
     try:
         res = requests.get(url, timeout=10)
@@ -53,4 +53,4 @@ def Global_market(vs_currency="usd"):
     except Exception as e:
         return {
             "error": str(e)
-        }  
+        } 
