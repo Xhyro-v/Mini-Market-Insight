@@ -10,7 +10,6 @@ print(Center.box(Center.text("CRYPTO SIGNAL ANALYZER")))
 def auth_menu():
       while True:
           auth = Auth()
-          print("\n=== AUTH SYSTEM ===")
           print("1. Login")
           print("2. Daftar")
           print("0. Keluar")
@@ -49,12 +48,14 @@ def auth_menu():
   
           else:
               print(Color.Red(Center.text("Pilihan tidak valid!")))
+
+
 def main_menu(username):
       while True:
           """
           Enter your API key down here ↓
           """
-          CAK = crypto.ApiKey("YOUR_API_KEY")
+          CAK = crypto.ApiKey("CG-7qQZF5SzkFCZhcbXg9wAUvAv")
           """
           ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
           """
@@ -68,26 +69,36 @@ def main_menu(username):
         
               print("\n=====CRYPTO=MENU=====")
               print("1.Lihat harga")
-              print("2.Buat saran keputusan\n")
+              print("2.Market global")
+              print("3.Buat saran keputusan\n")
+              print("0.Kembali")
             
               submenu = input("Pilih Submenu: ").strip()
               if submenu in ["1"]:
                   Output.list_crypto(CRYPTO_LIST)
                   while True:
                       choice = int(Input.number("\nPilih Crypto (1-4): "))
-                      if choice == 909:
+                      if choice == 0:
                           break
-                      coin_id = CRYPTO_LIST[choice - 1]
+                      try:
+                        coin_id = CRYPTO_LIST[choice - 1]
                 
-                      current_price = fetch_current_price(coin_id, CAK)
-                      Output.report_info(coin_id,current_price)
-
-                      data = Global_market()
-                      cap = data["market_cap"]
-                      vol = data["volume"]
-                      Output.global_val(cap, vol)
+                        current_price = fetch_current_price(coin_id, CAK)
+                        Output.report_info(coin_id,current_price)
+  
+                      except:
+                          print(Color.Red(Center.text("Gagal menampilkan harga!")))
 
               elif submenu in ["2"]:
+                try:
+                    data = Global_market()
+                    cap = data["market_cap"]
+                    vol = data["volume"]
+                    Output.global_val(cap, vol)
+                except:
+                  print(Color.Red(Center.text("Gagal menampilkan hasil!")))
+                  
+              elif submenu in ["3"]:
               
                   Output.list_crypto(CRYPTO_LIST)
                   choice = int(Input.number("\nPilih Crypto (1-4): "))
@@ -102,20 +113,23 @@ def main_menu(username):
   
                   avg_price = float(input("Masukan saat beli: "))
               
-                  historical_prices = fetch_historical_prices(coin_id, CAK, days=times)
-              
-                  current_price = fetch_current_price(coin_id, CAK)
-                  signal, avg_price, diff = analyze_signal(current_price, historical_prices,avg_price)
-              
-                  Output.report_decc(
-                      coin=coin_id,
-                      current=current_price,
-                      avg=avg_price,
-                      signal=signal,
-                      diff=diff,
-                      times=times
-                  )
-                  print("")
+                  try:
+                      historical_prices = fetch_historical_prices(coin_id, CAK, days=times)
+                  
+                      current_price = fetch_current_price(coin_id, CAK)
+                      signal, avg_price, diff = analyze_signal(current_price, historical_prices,avg_price)
+                  
+                      Output.report_decc(
+                          coin=coin_id,
+                          current=current_price,
+                          avg=avg_price,
+                          signal=signal,
+                          diff=diff,
+                          times=times
+                      )
+                      print("")
+                  except:
+                      print(Color.Red(Center.text("Gagal menampilkan hasil!")))
                   
       
           elif cmd in ["2","Keluar"]:
