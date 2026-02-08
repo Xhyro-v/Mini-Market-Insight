@@ -55,7 +55,7 @@ def main_menu(username):
           """
           Enter your API key down here ↓
           """
-          CAK = crypto.ApiKey("CG-7qQZF5SzkFCZhcbXg9wAUvAv")
+          CAK = crypto.ApiKey("YOUR_API_KEY")
           """
           ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
           """
