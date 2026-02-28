@@ -9,7 +9,7 @@ class Auth:
     def hash_password(self, password):
         return hashlib.sha256(password.encode()).hexdigest()
 
-    def register(self, username, password):
+    def register(self, username, password ):
         if self.DB.get(username):
             return False, Color.Yellow(Center.text("Username sudah ada!"))
 

@@ -54,7 +54,7 @@ python main.py
 --
 
 ## How to Use
-1.Users must register at Coingecko.com to     obtain an API key for real-time price data,After that, insert the API key into Utils/Utility.py by replacing the value of 'COINGECKO_API_KEY ='
+1.Users must register at Coingecko.com to obtain an API key for real-time price data,After that, insert the API keyby replacing the value of 'COINGECKO_API_KEY ='
 
 2.Run the program using the following command inside the MarketInsight folder:
 

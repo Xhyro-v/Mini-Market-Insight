@@ -1,3 +1,33 @@
+crypto_LIST = [
+"bitcoin",
+"ethereum",
+"tether",
+"binancecoin",
+"XRP",
+"solana",
+"dogecoin",
+"cardano",
+"shibainu",
+"litecoin",
+"bitcoincash",
+"stellar",
+"chainlink",
+"polkadot",
+"uniswap",
+"tron",
+"avalanche",
+"monero",
+"cosmos",
+"eos"
+]
+
+time_LIST = [
+        "1 day",
+        "7 days",
+        "30 days",
+        ]
+
+
 class Color:
     def Black(teks):
       return f"\033[30m{teks}\033[0m"
@@ -155,42 +185,10 @@ class Input:
         return getpass(" " * spasi) if hidden else input(" " * spasi)
 
 class crypto:
+
     def ApiKey(API_KEY) -> str:
         COINGECKO_API_KEY = API_KEY
         return (str(COINGECKO_API_KEY))
-
-    def CL():
-        LIST = [
-        "bitcoin",
-        "ethereum",
-        "tether",
-        "binancecoin",
-        "XRP",
-        "solana",
-        "dogecoin",
-        "cardano",
-        "shibainu",
-        "litecoin",
-        "bitcoincash",
-        "stellar",
-        "chainlink",
-        "polkadot",
-        "uniswap",
-        "tron",
-        "avalanche",
-        "monero",
-        "cosmos",
-        "eos"
-          ]
-        return LIST
-
-    def TL():
-        List = [
-        "1 day",
-        "7 days",
-        "30 days",
-        ]
-        return List
   
     def url():
         BASE_URL = "https://api.coingecko.com/api/v3/"

@@ -1,66 +1,25 @@
-from Utils.Utility import Input, Color, Center, Font, crypto
+from Utils.Utility import Input, Color, Center, Font, crypto_LIST, time_LIST, crypto
 from Core.Data_fetcher import fetch_current_price, fetch_historical_prices, Global_market
 from Core.Processor import analyze_signal
 from Core.Report import Output
-from Auth.Login import Auth
 from Storage.Database import Database
+from Services.Watchlist_service import Watchlist_Service
+from Services.Login_service import Auth_service
+
 
 
 print(Center.box(Center.text("CRYPTO SIGNAL ANALYZER")))
-def auth_menu():
-      while True:
-          auth = Auth()
-          print("1. Login")
-          print("2. Daftar")
-          print("0. Keluar")
-  
-          pilihan = input("Pilih: ")
-  
-          if pilihan == "1":
-              password_token = 5
-              while password_token > 0 :
-
-                  username = Input.Auth_in("Username: ")
-                  password = Input.Auth_in("Password: ", hidden = True)
-      
-                  status, msg = auth.login(username, password)
-                  if status is False:
-                      print(msg)
-                      password_token -= 1
-      
-                  else:
-                      print(msg)
-                      if status:
-                          return username 
-                      
-      
-  
-  
-          elif pilihan == "2":
-              username = Input.Auth_in(Color.BrightBlue("Username: "))
-              password = Input.Auth_in(Color.BrightBlue("Password: "))
-  
-              status, msg = auth.register(username, password)
-              print(msg)
-  
-          elif pilihan == "0":
-              exit()
-  
-          else:
-              print(Color.Red(Center.text("Pilihan tidak valid!")))
-
-
 def main_menu(username):
       while True:
           """
           Enter your API key down here ↓
           """
-          CAK = crypto.ApiKey("YOUR_API_KEY")
+          CAK = "CG-7qQZF5SzkFCZhcbXg9wAUvAv"
           """
           ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
           """
-          TIME_LIST = crypto.TL()
-          CRYPTO_LIST = crypto.CL()
+          TIME_LIST = time_LIST
+          CRYPTO_LIST = crypto_LIST
           print(Font.Bold("=====MENU====="))
           print("1.Crypto")
           print("2.keluar\n")
@@ -69,8 +28,9 @@ def main_menu(username):
         
               print("\n=====CRYPTO=MENU=====")
               print("1.Lihat harga")
-              print("2.Market global")
-              print("3.Buat saran keputusan\n")
+              print("2.Buat watchlist")
+              print("3.Market global")
+              print("4.Buat saran keputusan\n")
               print("0.Kembali")
             
               submenu = input("Pilih Submenu: ").strip()
@@ -90,15 +50,19 @@ def main_menu(username):
                           print(Color.Red(Center.text("Gagal menampilkan harga!")))
 
               elif submenu in ["2"]:
-                try:
-                    data = Global_market()
-                    cap = data["market_cap"]
-                    vol = data["volume"]
-                    Output.global_val(cap, vol)
-                except:
-                  print(Color.Red(Center.text("Gagal menampilkan hasil!")))
-                  
+                  WS = Watchlist_Service()
+                  WS.watchlist_menu()
+  
               elif submenu in ["3"]:
+                  try:
+                      data = Global_market()
+                      cap = data["market_cap"]
+                      vol = data["volume"]
+                      Output.global_val(cap, vol)
+                  except:
+                    print(Color.Red(Center.text("Gagal menampilkan hasil!")))
+                  
+              elif submenu in ["4"]:
               
                   Output.list_crypto(CRYPTO_LIST)
                   choice = int(Input.number("\nPilih Crypto (1-4): "))
@@ -137,10 +101,10 @@ def main_menu(username):
               break
           
           else:
-              print(Color.Red(Center.text(f"There's no menu name {cmd}\n")))
+              print(Color.Red(Center.text(f"Tidak ada menu bernama {cmd}\n")))
 
 def Main():
-    username = auth_menu()
+    username = Auth_service.auth_menu()
     main_menu(username)
 
 if __name__ == '__main__':

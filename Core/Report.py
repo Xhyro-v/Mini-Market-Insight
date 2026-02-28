@@ -40,4 +40,3 @@ class Output:
         print(f"Total Volume: ${Color.Green(f'{vol:,.0f}')}")
         print(Center.box(""))
         print("")
-
